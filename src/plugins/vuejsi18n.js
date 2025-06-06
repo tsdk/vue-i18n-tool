@@ -22,55 +22,69 @@ function vuejsi18n(js, key) {
   const nodeList = []
   traverse(ast, {
     enter(path) {
-      if (path.isIdentifier({ name: '$t' })) {
-        path.stop()
-      }
-      if (path.isStringLiteral() || path.isDirectiveLiteral() || path.isTemplateElement()) {
-        const node = path.node
-        let start = node.start
-        let end = node.end
-        if (isObject) {
-          start--
-          end--
+      if (!path.isIdentifier({ name: '$t' })) {
+        // path.stop();
+
+        if (
+          path.isStringLiteral() ||
+          path.isDirectiveLiteral() ||
+          path.isTemplateElement()
+        ) {
+          // console.log(path.node.value);
+          const node = path.node;
+          let start = node.start;
+          let end = node.end;
+          if (isObject) {
+            start--;
+            end--;
+          }
+          nodeList.push({
+            type: node.type,
+            start,
+            end,
+          });
         }
-        nodeList.push({
-          type: node.type,
-          start,
-          end
-        })
       }
-    }
-  })
+    },
+  });
   if (isObject) {
-    js = js.slice(1, -1)
+    js = js.slice(1, -1);
   }
-  let transformedContent = ''
-  let transformedString = ''
-  const originStringList = []
+  let transformedContent = '';
+  let transformedString = '';
+  const originStringList = [];
   nodeList
     .sort((a, b) => a.start - b.start)
     .map((node, i) => {
-      let originString = js.slice(node.start, node.end)
+      let originString = js.slice(node.start, node.end);
+      // console.log(originString);
       if (hasChinese.test(originString)) {
         if (node.type === 'TemplateElement') {
-          transformedString = `\${$t('${key}.${decodeOriginString(originString)}')}`
-          originStringList.push(originString)
+          transformedString = `\${$t('${key}.${decodeOriginString(
+            originString
+          )}')}`;
+          originStringList.push(originString);
         } else {
-          originString = originString.replace(/'/g, '')
-          transformedString = `$t('${key}.${decodeOriginString(originString)}')`
-          originStringList.push(originString)
+          originString = originString.replace(/'/g, '');
+          transformedString = `$t('${key}.${decodeOriginString(
+            originString
+          )}')`;
+          originStringList.push(originString);
         }
       } else {
-        transformedString = originString
+        transformedString = originString;
       }
       const preNode = nodeList[i - 1] || {
-        end: 0
-      }
-      transformedContent += `${js.slice(preNode.end, node.start)}${transformedString}`
+        end: 0,
+      };
+      transformedContent += `${js.slice(
+        preNode.end,
+        node.start
+      )}${transformedString}`;
       if (i === nodeList.length - 1) {
-        transformedContent += js.slice(node.end)
+        transformedContent += js.slice(node.end);
       }
-    })
+    });
 
   transformedContent = transformedContent || js
   return [transformedContent, originStringList]
