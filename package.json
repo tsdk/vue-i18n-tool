@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "xanked@gmail.com",
   "private": false,
   "license": "ISC",
@@ -12,10 +11,13 @@
     "@babel/parser": "^7.13.10",
     "@babel/traverse": "^7.13.0",
     "axios": "^0.21.1",
+    "deepmerge": "^4.3.1",
     "glob": "^7.1.6",
     "he": "^1.2.0",
+    "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "parse5": "^6.0.1",
+    "progress": "^2.0.3",
     "vue-template-compiler": "^2.6.12"
   }
 }
