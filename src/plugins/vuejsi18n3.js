@@ -1,5 +1,5 @@
 const babelParser = require('@babel/parser');
-// const babelParser = require('@vue/compiler-sfc');
+const types = require('@babel/types');
 const traverse = require('@babel/traverse').default;
 const hasChinese = /[\u4e00-\u9fa5]/;
 const regChinese = /[\u4e00-\u9fa5]+/g;
@@ -26,7 +26,11 @@ function vuejsi18n(js, key) {
   traverse(ast, {
     enter(path) {
       if (!path.isIdentifier({ name: '$t' })) {
-        // path.stop();
+        if (types.isTSLiteralType(path.node)) {
+          // ts类型跳过
+          // path.stop();
+          return path.skip();
+        }
 
         if (
           path.isStringLiteral() ||
@@ -63,14 +67,21 @@ function vuejsi18n(js, key) {
         if (node.type === 'TemplateElement') {
           const tokens = originString.match(regChinese);
           if (tokens && tokens.length > 0) {
-            transformedString = originString;
+            const strs = [];
+            let str = originString;
             tokens.forEach((token) => {
-              transformedString = transformedString.replace(
-                token,
+              strs.push(...str.split(token));
+              str = strs.pop();
+            }); // 有序切片，防止前后替换重名
+            tokens.forEach((token, i) => {
+              strs.splice(
+                2 * i + 1,
+                0,
                 `\${$t('${key}.${decodeOriginString(token)}')}`
               );
               originStringList.push(token);
             });
+            transformedString = strs.join('');
           } else {
             transformedString = `\${$t('${key}.${decodeOriginString(
               originString

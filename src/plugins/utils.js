@@ -1,70 +1,74 @@
+const { formatStr } = require('../utils/format');
 exports.decodeOriginString = function formatOriginString(str) {
+  const key = formatStr(str);
   // str = str.replace(/\./igm, '__')
-  return str
-}
+  return key;
+};
 
 exports.encodeOriginString = function parseOriginString(str) {
   // str = str.replace(/__/igm, '.')
-  return str
-}
+  return str;
+};
 
 function jsonFlat(data, k) {
-  var jmap = {}
-  var expandJson = function(jstr, mapIndex) {
+  var jmap = {};
+  var expandJson = function (jstr, mapIndex) {
     if (jstr instanceof Array) {
       for (const i in jstr) {
-        expandJson(jstr[i], `${mapIndex}[${i}]`)
+        expandJson(jstr[i], `${mapIndex}[${i}]`);
       }
     } else if (jstr instanceof Object) {
       for (const i in jstr) {
         // 如果mapIndex为false,null,''时，则不加初始索引
-        let key
+        let key;
         if (!mapIndex) {
-          key = i
+          key = i;
         } else {
-          key = `${mapIndex}.${i}`
+          key = `${mapIndex}.${i}`;
         }
         // Array 是 Object 的子集，先判断是否为 Array,如果是，则不走Object的判断
         if (jstr[i] instanceof Array) {
           for (var j in jstr[i]) {
-            expandJson(jstr[i][j], `${key}[${j}]`)
+            expandJson(jstr[i][j], `${key}[${j}]`);
           }
-        } else if ((jstr[i] instanceof Object)) {
-          expandJson(jstr[i], key)
+        } else if (jstr[i] instanceof Object) {
+          expandJson(jstr[i], key);
         } else {
-          jmap[key] = jstr[i]
+          jmap[key] = jstr[i];
         }
       }
     }
-  }
-  expandJson(data, k)
-  return jmap
+  };
+  expandJson(data, k);
+  return jmap;
 }
 
 function jsonUnflat(data) {
-  if (Object(data) !== data || Array.isArray(data)) { return data }
-  const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g
-  const resultholder = {}
-  for (const p in data) {
-    var cur = resultholder
-    let prop = ''
-    let m
-    while (m = regex.exec(p)) {
-      cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}))
-      prop = m[2] || m[1]
-    }
-    cur[prop] = data[p]
+  if (Object(data) !== data || Array.isArray(data)) {
+    return data;
   }
-  return resultholder[''] || resultholder
+  const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
+  const resultholder = {};
+  for (const p in data) {
+    var cur = resultholder;
+    let prop = '';
+    let m;
+    while ((m = regex.exec(p))) {
+      cur = cur[prop] || (cur[prop] = m[2] ? [] : {});
+      prop = m[2] || m[1];
+    }
+    cur[prop] = data[p];
+  }
+  return resultholder[''] || resultholder;
 }
 
 function objToList(obj) {
-  const list = []
+  const list = [];
 
-  Object.keys(obj).forEach(name => {
-    list.push([name, obj[name]])
-  })
-  return list
+  Object.keys(obj).forEach((name) => {
+    list.push([name, obj[name]]);
+  });
+  return list;
 }
 
 // function objToList(obj) {
@@ -77,26 +81,26 @@ function objToList(obj) {
 // }
 
 function listToObj(list) {
-  const obj = {}
-  list.forEach(item => {
-    const [name, value] = item
-    obj[name] = value
-  })
-  return obj
+  const obj = {};
+  list.forEach((item) => {
+    const [name, value] = item;
+    obj[name] = value;
+  });
+  return obj;
 }
 
 function clearTranslatedList(list) {
-  const nList = []
-  list.forEach(item => {
-    const [, str] = item
-    if (str === '' || str === undefined) nList.push(item)
-  })
+  const nList = [];
+  list.forEach((item) => {
+    const [, str] = item;
+    if (str === '' || str === undefined) nList.push(item);
+  });
 
-  return nList
+  return nList;
 }
 
-exports.jsonFlat = jsonFlat
-exports.jsonUnflat = jsonUnflat
-exports.objToList = objToList
-exports.listToObj = listToObj
-exports.clearTranslatedList = clearTranslatedList
+exports.jsonFlat = jsonFlat;
+exports.jsonUnflat = jsonUnflat;
+exports.objToList = objToList;
+exports.listToObj = listToObj;
+exports.clearTranslatedList = clearTranslatedList;

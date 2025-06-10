@@ -14,6 +14,9 @@ importers:
       '@babel/traverse':
         specifier: ^7.13.0
         version: 7.27.4
+      '@babel/types':
+        specifier: ^7.27.6
+        version: 7.27.6
       '@vue/compiler-sfc':
         specifier: ^3.5.16
         version: 3.5.16
