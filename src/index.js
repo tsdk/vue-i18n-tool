@@ -22,7 +22,7 @@ function contentReplaceKey(content, i18nList) {
   const list = [];
   i18nList.forEach((item) => {
     const key = formatStr(item);
-    content = content.replaceAll(item, key);
+    content = content.replace(`.${item}'`, `.${key}'`);
     list.push({
       key,
       content: item,

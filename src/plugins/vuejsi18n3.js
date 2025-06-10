@@ -2,6 +2,7 @@ const babelParser = require('@babel/parser');
 // const babelParser = require('@vue/compiler-sfc');
 const traverse = require('@babel/traverse').default;
 const hasChinese = /[\u4e00-\u9fa5]/;
+const regChinese = /[\u4e00-\u9fa5]+/g;
 const { decodeOriginString } = require('./utils');
 
 module.exports = vuejsi18n;
@@ -60,10 +61,22 @@ function vuejsi18n(js, key) {
       let originString = js.slice(node.start, node.end);
       if (hasChinese.test(originString)) {
         if (node.type === 'TemplateElement') {
-          transformedString = `\${$t('${key}.${decodeOriginString(
-            originString
-          )}')}`;
-          originStringList.push(originString);
+          const tokens = originString.match(regChinese);
+          if (tokens && tokens.length > 0) {
+            transformedString = originString;
+            tokens.forEach((token) => {
+              transformedString = transformedString.replace(
+                token,
+                `\${$t('${key}.${decodeOriginString(token)}')}`
+              );
+              originStringList.push(token);
+            });
+          } else {
+            transformedString = `\${$t('${key}.${decodeOriginString(
+              originString
+            )}')}`;
+            originStringList.push(originString);
+          }
         } else {
           originString = originString.replace(/'/g, '');
           transformedString = `$t('${key}.${decodeOriginString(
