@@ -42,6 +42,7 @@ class TApi {
   }
 
   async translateList(list) {
+    if (!this.appid) return [];
     const queueList = chunk(list, this.qtime)
     const nList = []
     const total = queueList.length

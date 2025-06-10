@@ -26,7 +26,40 @@ function vuejsi18n(js, key) {
   traverse(ast, {
     enter(path) {
       if (!path.isIdentifier({ name: '$t' })) {
-        if (types.isTSLiteralType(path.node)) {
+        if (
+          types.isTSUnionType(path.node) ||
+          types.isTSConditionalType(path.node) ||
+          types.isTSConstructorType(path.node) ||
+          types.isTSFunctionType(path.node) ||
+          types.isTSImportType(path.node) ||
+          types.isTSIndexedAccessType(path.node) ||
+          types.isTSInferType(path.node) ||
+          types.isTSIntersectionType(path.node) ||
+          types.isTSLiteralType(path.node) ||
+          types.isTSMappedType(path.node) ||
+          types.isTSOptionalType(path.node) ||
+          types.isTSParenthesizedType(path.node) ||
+          types.isTSRestType(path.node) ||
+          types.isTSTemplateLiteralType(path.node) ||
+          types.isTSThisType(path.node) ||
+          types.isTSTupleType(path.node) ||
+          types.isTSInterfaceBody(path.node) ||
+          types.isTSEnumBody(path.node) ||
+          types.isTSConstructSignatureDeclaration(path.node) ||
+          types.isTSCallSignatureDeclaration(path.node) ||
+          types.isTSInterfaceDeclaration(path.node) ||
+          types.isTSModuleDeclaration(path.node) ||
+          types.isTSEnumDeclaration(path.node) ||
+          types.isTSImportEqualsDeclaration(path.node) ||
+          types.isTSNamespaceExportDeclaration(path.node) ||
+          types.isTSTypeAliasDeclaration(path.node) ||
+          types.isTSTypeParameterDeclaration(path.node) ||
+          types.isTSPropertySignature(path.node) ||
+          types.isTSMethodSignature(path.node) ||
+          types.isTSIndexSignature(path.node) ||
+          types.isTSStringKeyword(path.node) ||
+          types.isTSModuleBlock(path.node)
+        ) {
           // ts类型跳过
           // path.stop();
           return path.skip();
@@ -70,8 +103,9 @@ function vuejsi18n(js, key) {
             const strs = [];
             let str = originString;
             tokens.forEach((token) => {
-              strs.push(...str.split(token));
-              str = strs.pop();
+              const arr = str.split(token);
+              strs.push(arr[0]);
+              str = arr.slice(1).join(token);
             }); // 有序切片，防止前后替换重名
             tokens.forEach((token, i) => {
               strs.splice(
