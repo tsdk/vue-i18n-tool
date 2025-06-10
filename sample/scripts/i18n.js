@@ -1,19 +1,18 @@
 const I18n = require('../../src')
 
 const i18n = new I18n({
+  vue3: true,
   basePath: './src',
-  filePaths: [
-  ],
-  skipFiles: [
-  ],
+  filePaths: [],
+  skipFiles: [],
   keyReplace: {
-    'src/': ''
+    'src/': '',
   },
   dictPath: './config',
   from: 'zh',
   to: 'en',
   appid: '',
-  token: ''
-})
+  token: '',
+});
 
 i18n.start()

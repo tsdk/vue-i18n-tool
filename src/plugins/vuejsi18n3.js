@@ -1,25 +1,27 @@
-const babelParser = require('@babel/parser')
-const traverse = require('@babel/traverse').default
-const hasChinese = /[\u4e00-\u9fa5]/
-const { decodeOriginString } = require('./utils')
+const babelParser = require('@babel/parser');
+// const babelParser = require('@vue/compiler-sfc');
+const traverse = require('@babel/traverse').default;
+const hasChinese = /[\u4e00-\u9fa5]/;
+const { decodeOriginString } = require('./utils');
 
-module.exports = vuejsi18n
+module.exports = vuejsi18n;
 function vuejsi18n(js, key) {
-  let isObject = false
+  let isObject = false;
   try {
     if (JSON.stringify(js) && js[0] === '{' && js[js.length - 1] === '}') {
-      js = `(${js})`
-      isObject = true
+      js = `(${js})`;
+      isObject = true;
     }
   } catch (error) {
     // console.log(error);
   }
   const ast = babelParser.parse(js, {
     range: true,
-    sourceType: 'module'
-  })
+    sourceType: 'module',
+    plugins: ['typescript'],
+  });
 
-  const nodeList = []
+  const nodeList = [];
   traverse(ast, {
     enter(path) {
       if (!path.isIdentifier({ name: '$t' })) {
@@ -84,6 +86,6 @@ function vuejsi18n(js, key) {
       }
     });
 
-  transformedContent = transformedContent || js
-  return [transformedContent, originStringList]
+  transformedContent = transformedContent || js;
+  return [transformedContent, originStringList];
 }
