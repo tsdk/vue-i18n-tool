@@ -58,7 +58,7 @@ class TDict {
   }
 
   writeLang(lang, data) {
-    const filepath = path.resolve(this.dictPath, lang)
+    const filepath = path.resolve(this.langPath, lang);
     fs.writeFileSync(`${this.langPath}/${lang}.json`, JSON.stringify(data, null, '\t'))
   }
 

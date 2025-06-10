@@ -7,7 +7,7 @@ const { generateZhDict, mergeDictBySettings } = require('./utils/generateDict')
 const TFile = require('./core/TFile')
 const TApi = require('./core/TApi')
 const TDict = require('./core/TDict')
-let Processes = require('./core/processes');
+let Processes;
 
 function replaceMark(str, replaces) {
   str = str.split(path.sep).join('__');
@@ -51,6 +51,7 @@ class main {
     this.config = config;
     this.tDict = new TDict({
       dictPath: config.dictPath,
+      langPath: config.langPath,
     });
 
     this.tFile = new TFile({
@@ -75,6 +76,7 @@ class main {
 
   async start() {
     if (this.config.vue3) Processes = require('./core/processes3');
+    else Processes = require('./core/processes');
     const i18nSettings = {};
     const i18nContent = {};
     const componentList = this.scanDir();
