@@ -698,7 +698,7 @@ import { MATERIAL_VIDEO_TYPE } from './constant'
 const { globalProperties } = useCurrentInstance()
 
 const placeholderTips = `请输入场景参考文案，以便于“笔记助手”在生成分发内容时,生成类似的文案建议。\n
-eg:OPPO Find X7 Ultra 卫星通信版相比于普通版,加500块钱,上了1TB存储还送个卫星通信,对想买Ultra又正好想要大存储的用户来说挺香的。OPPO Find X7 Ultra卫星通信版,就当买一部1TB手机,卫星通话是送的`
+eg:QQ Find X7 Ultra 卫星通信版相比于普通版,加500块钱,上了1TB存储还送个卫星通信,对想买Ultra又正好想要大存储的用户来说挺香的。QQ Find X7 Ultra卫星通信版,就当买一部1TB手机,卫星通话是送的`
 
 const downloadRef = ref(false)
 const queryParams = reactive<Record<string, any>>({
@@ -1094,7 +1094,7 @@ const handleUploadChange = (uploadFile: UploadFile, uploadFiles: UploadFiles) =>
 }
 
 const handleDownload = () => {
-  window.open('https://ocs-cn-south.oppoer.me/dev-marketing-assistant/手机砸坚果水果视频 10条-解禁时间9日.zip', '_self')
+  window.open('https://ocs-cn-south.qqer.me/dev-marketing-assistant/手机砸坚果水果视频 10条-解禁时间9日.zip', '_self')
 }
 
 const handleCreateScene = () => {

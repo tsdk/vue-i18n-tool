@@ -238,13 +238,13 @@ const page = reactive({
     {
       object_id: '1c0c082e-a832-4e6d-9ed5-43cb26e30fff',
       name: '阿里巴巴普惠体',
-      url: 'http://ocs-cn-south.oppoer.me/market-ai/file_save/custom_font/202406/df10f7fa-902e-48ef-811e-3161156cd424.ttf',
+      url: 'http://ocs-cn-south.qqer.me/market-ai/file_save/custom_font/202406/df10f7fa-902e-48ef-811e-3161156cd424.ttf',
       fontFamily: 'AlibabaPuHuiTi-3-55-Regular'
     },
     {
       object_id: 'e04d658f-2491-47b0-8674-9794d83ec3d2',
-      name: 'OPPO字体',
-      url: 'http://ocs-cn-south.oppoer.me/market-ai/file_save/custom_font/202404/82119670-d842-486c-9631-e6a7d17708d1.ttf',
+      name: 'QQ字体',
+      url: 'http://ocs-cn-south.qqer.me/market-ai/file_save/custom_font/202404/82119670-d842-486c-9631-e6a7d17708d1.ttf',
       fontFamily: 'OPlusSans3-Regular'
     }
   ] as any[],

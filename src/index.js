@@ -108,7 +108,10 @@ class main {
       fs.writeFileSync(file.filePath, file.content);
     });
 
-    this.tDict.writeLang('zh', generateZhDict(i18nSettings));
+    this.tDict.writeLang(
+      'zh',
+      generateZhDict(i18nSettings, this.config.preprocess)
+    );
 
     const waitTranslateList = mergeDictBySettings(
       i18nSettings,

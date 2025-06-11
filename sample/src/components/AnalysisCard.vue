@@ -886,10 +886,10 @@ const handle2Opinion = () => {
   const MODEL_MAP: any = {
     FINDX7: ['Find X7 Ultra', 'Find X7', 'Find X7 Ultra卫星通信版'],
     FINDX7系列: ['Find X7 Ultra', 'Find X7', 'Find X7 Ultra卫星通信版'],
-    OPPOFINDX7系列: ['Find X7 Ultra', 'Find X7', 'Find X7 Ultra卫星通信版'],
+    QQFINDX7系列: ['Find X7 Ultra', 'Find X7', 'Find X7 Ultra卫星通信版'],
     FINDX8系列: ['Find X8', 'Find X8 Ultra', 'Find X8 Pro'],
     FINDX8: ['Find X8', 'Find X8 Ultra', 'Find X8 Pro'],
-    OPPOFINDX8系列: ['Find X8', 'Find X8 Ultra', 'Find X8 Pro'],
+    QQFINDX8系列: ['Find X8', 'Find X8 Ultra', 'Find X8 Pro'],
     VIVOX200系列: ['X200', 'X200 Pro', 'X200 mini', 'X200 Pro mini', 'X200 Ultra'],
     VIVOX200: ['X200', 'X200 Pro', 'X200 mini', 'X200 Pro mini', 'X200 Ultra'],
     荣耀MAGIC7系列: ['荣耀Magic7', '荣耀Magic7 Pro'],

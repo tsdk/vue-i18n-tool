@@ -1,13 +1,13 @@
 const { jsonFlat } = require("../plugins/utils");
 const { readDict } = require("../plugins/dict");
 
-function generateZhDict(settings) {
+function generateZhDict(settings, callback) {
   const dict = {};
   Object.keys(settings).forEach((key) => {
     const item = settings[key];
     if (!dict[key]) dict[key] = {};
     item.forEach((iItem) => {
-      dict[key][iItem.key] = iItem.content;
+      dict[key][iItem.key] = callback ? callback(iItem.content) : iItem.content;
     });
   });
 

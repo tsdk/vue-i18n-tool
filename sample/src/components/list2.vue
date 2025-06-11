@@ -1128,7 +1128,7 @@
     :platform="page.badItem.platform"
     :badItem="page.badItem"
     :filterBrandList="filterCondition.brandAllList"
-    :filterOppoMoodList="filterCondition.brandEmotionList"
+    :filterQQMoodList="filterCondition.brandEmotionList"
     @clickClose="handleCloseBadCaseDialog"
   />
   <CommonFilterTemplateDialog
@@ -2620,7 +2620,7 @@ const getShareLink = () => {
 }
 const handleToShareOuter = () => {
   // 如果非开发就不能用
-  if (!['martech.oppoer.me', 'martech.heytap.com'].includes(window.location.hostname)) {
+  if (!['martech.qqer.me', 'martech.heytap.com'].includes(window.location.hostname)) {
     globalProperties.$message({
       message: '请在生产环境使用',
       type: 'warning'
@@ -2638,7 +2638,7 @@ const handleToShareOuter = () => {
     if (res && res.key) {
       let currentURL = window.location.href.split('?')[0]
       // updateParam(res.key)
-      currentURL = currentURL.replace('martech.oppoer.me', 'martech.heytap.com')
+      currentURL = currentURL.replace('martech.qqer.me', 'martech.heytap.com')
       try {
         const copyUrl = currentURL + '?shareId=' + res.key
         await toClipboard(copyUrl)

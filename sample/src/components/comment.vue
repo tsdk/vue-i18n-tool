@@ -197,7 +197,7 @@
       :rowItem="instance.editItem"
       :isShowDialog="instance.scDialogVisible"
       :filterBrandList="instance.filterObj.filterBrandList"
-      :filterOppoMoodList="instance.filterObj.filterContentOppoList"
+      :filterQQMoodList="instance.filterObj.filterContentQQList"
       @clickClose="handleCloseScDialog"
     />
   </div>
@@ -245,7 +245,7 @@ const instance = reactive<any>({
     platformList: PLATFORM_OPTIONS,
     statusOptions: STATUS_OPTIONS,
     filterBrandList: [],
-    filterContentOppoList: []
+    filterContentQQList: []
   }
 })
 const { tableData, loading, page, loadList, handleSizeChange, handlePageChange } = useTable(
@@ -254,7 +254,7 @@ const { tableData, loading, page, loadList, handleSizeChange, handlePageChange }
 )
 
 onMounted(() => {
-  getOppoMoodOptions()
+  getQQMoodOptions()
   loadList()
 })
 
@@ -269,7 +269,7 @@ watch(
   }
 )
 
-const getOppoMoodOptions = async () => {
+const getQQMoodOptions = async () => {
   const params: any = {}
   const res = await sentimentFilterDim(params)
   if (res) {
@@ -289,7 +289,7 @@ const getOppoMoodOptions = async () => {
       })
     }
     instance.filterObj.filterBrandList = brands
-    instance.filterObj.filterContentOppoList = ['正向', '负向', '不明确', '中性']
+    instance.filterObj.filterContentQQList = ['正向', '负向', '不明确', '中性']
   }
 }
 
