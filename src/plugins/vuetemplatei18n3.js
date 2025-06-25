@@ -79,10 +79,9 @@ function vuetemplatei18n(templateContent, key) {
           originString.slice(originString.indexOf('=') + 2, -1)
         );
         try {
-          transformedString = originString.replace(
-            value,
-            vuejsi18n(value, key)[0]
-          );
+          const [content, list] = vuejsi18n(value, key);
+          transformedString = originString.replace(value, content);
+          if (list && list.length > 0) originStringList.push(...list);
         } catch (e) {
           // 无需转译
           transformedString = originString;
