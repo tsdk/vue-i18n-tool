@@ -44,9 +44,11 @@ function vuetemplatei18n(templateContent, key) {
                 originStringList.push(token.binding);
               }
             } else {
+              const [content, list] = vuejsi18n(token.binding, key);
               tokenTransformed = originString
                 .slice(token.start, token.end)
-                .replace(token.binding, vuejsi18n(token.binding, key)[0]);
+                .replace(token.binding, content);
+              if (list && list.length > 0) originStringList.push(...list);
             }
             const preToken = tokens[i - 1] || {
               end: 0,
