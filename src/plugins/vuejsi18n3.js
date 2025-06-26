@@ -115,7 +115,7 @@ function vuejsi18n(js, key) {
               );
               originStringList.push(token);
             });
-            transformedString = strs.join('');
+            transformedString = strs.join('') + str;
           } else {
             transformedString = `\${$t('${key}.${decodeOriginString(
               originString
